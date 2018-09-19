@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace BlogApp
 {
@@ -10,6 +11,7 @@ namespace BlogApp
         public BlogPost()
         {
             Comments = new HashSet<Comments>();
+            Created = DateTimeOffset.Now;
         }
 
         public int Id { get; set; }
@@ -17,7 +19,11 @@ namespace BlogApp
         public DateTimeOffset? Updated { get; set; }
         public string Title { get; set; }
         public string Slug { get; set; }
+
+        [AllowHtml]
         public string Body { get; set; }
+
+        public string ShortBody { get; set; }
         public string MediaURL { get; set; }
         public bool Published { get; set; }
         public virtual ICollection<Comments> Comments { get; set; }

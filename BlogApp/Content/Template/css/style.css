@@ -1741,3 +1741,10 @@ section {
     background-color: rgb(49, 160, 177);
     color: #fff;
 }
+
+
+/*My own styles*/
+
+#top_header {
+    border-bottom: 2px solid black;
+}

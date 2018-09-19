@@ -1,70 +1,250 @@
 ﻿@model IEnumerable<BlogApp.BlogPost>
+@using BlogApp.Helpers;
 
 @{
     ViewBag.Title = "Index";
+
 }
 
-<h2>Index</h2>
+@*<h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Updated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Slug)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Body)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MediaURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Published)
+            </th>
+            <th></th>
+        </tr>*@
+
+@*@foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Updated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Slug)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Body)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MediaURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Published)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+            </td>
+        </tr>
+    }
+
+    </table>*@
+
+
+@{
+    ViewBag.Title = "Tech Blog";
+}
+
+@{
+    var firsElement = Model.FirstOrDefault();
+    var myModelList = Model.ToList();
+}
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Created)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Updated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Slug)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Body)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MediaURL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Published)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Created)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Updated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Slug)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Body)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MediaURL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Published)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="entity_wrapper">
+                @*<div class="entity_title header_purple">
+                        <h1><a href="category.html" target="_blank">Mobile</a></h1>
+                    </div>*@
+                <!-- entity_title -->
 
-        </td>
-    </tr>
-}
+                <div class="entity_thumb">
+                    <img class="img-responsive" src="@firsElement.MediaURL" alt="feature-top">
+                </div>
+                <!-- entity_thumb -->
 
-</table>
+                <div class="entity_title">
+                    <a href="single.html" target="_blank">
+                        <h3>
+                            @firsElement.Title
+                        </h3>
+                    </a>
+                </div>
+                <!-- entity_title -->
+
+                <div class="entity_meta">
+                    <a href="#">@firsElement.Created.ToString("dd MMMM yyyy")</a>, by: <a href="#">Eric joan</a>
+                </div>
+                <!-- entity_meta -->
+
+                <div class="entity_content">
+                    @StringTruncate.Truncate(firsElement.Body, 500)
+                </div>
+                <!-- entity_content -->
+
+                <div class="entity_social">
+                    <span><i class="fa fa-share-alt"></i>424 <a href="#">Shares</a> </span>
+                    <span><i class="fa fa-comments-o"></i>4 <a href="#">Comments</a> </span>
+                </div>
+                <!-- entity_social -->
+
+            </div>
+            <!-- entity_wrapper -->
+
+            <div class="row">
+
+                @{
+                    for (int i = 1; i < myModelList.Count(); i++)
+                    {
+                        <div class="col-md-6">
+                            <div class="category_article_body">
+                                <div class="top_article_img">
+                                    <img class="img-fluid" src="@myModelList[i].MediaURL" alt="feature-top">
+                                </div>
+                                <!-- top_article_img -->
+
+                                <div class="category_article_title">
+                                    <h5>
+                                        <a href="single.html" target="_blank">
+                                            @myModelList[i].Title
+                                        </a>
+                                    </h5>
+                                </div>
+                                <!-- category_article_title -->
+
+                                <div class="article_date">
+                                    <a href="#">@myModelList[i].Created.ToString("dd MMMM yyyy")</a>, by: <a href="#">Eric joan</a>
+                                </div>
+                                <!-- article_date -->
+
+                                <div class="category_article_content">
+                                    @StringTruncate.Truncate(myModelList[i].Body, 500)
+                                </div>
+                                <!-- category_article_content -->
+
+                                <div class="article_social">
+                                    <span><a href="#"><i class="fa fa-share-alt"></i>424 </a> Shares</span>
+                                    <span><i class="fa fa-comments-o"></i><a href="#">4</a> Comments</span>
+                                </div>
+                                <!-- article_social -->
+
+                            </div>
+                            <!-- category_article_body -->
+
+                        </div>
+                    }
+                }
+
+               
+
+            </div>
+            <!-- row -->
+
+
+
+            <nav aria-label="Page navigation" class="pagination_section">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Next" class="active">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- navigation -->
+
+        </div>
+        <!-- col-md-8 -->
+        <!-- col-md-4 -->
+
+    </div>
+    <!-- row -->
+
+</div>
+<!-- container -->
+<!-- Subscriber Section -->
+
+<section id="footer_section" class="footer_section">
+    <div class="container">
+
+    </div>
+
+    <div class="footer_bottom_Section">
+        <div class="container">
+            <div class="row">
+                <div class="footer">
+                    <div class="col-sm-3">
+                        <div class="social">
+                            <!--Facebook-->
+                            <a class="icons-sm fb-ic"><i class="fa fa-facebook"></i></a>
+                            <!--GitHub-->
+
+                            <a class="icons-sm fb-ic"><i class="fa fa-github"></i></a>
+                            <!--Linkedin-->
+                            <a class="icons-sm tmb-ic"><i class="fa fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>
+                            &copy; Copyright 2016-Tech News . Design by: <a href="https://uicookies.com">uiCookies</a>
+                        </p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p>Technology News Magazine</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+          
+
+
+<a href="#" class="crunchify-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+
+
