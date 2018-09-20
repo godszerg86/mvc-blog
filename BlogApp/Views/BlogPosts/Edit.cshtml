@@ -41,7 +41,15 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.MediaURL, "Image URL", htmlAttributes: new { @class = "control-label col-md-2" })
+        <label class="control-label col-md-2"  for="current-img">Current image:</label>
+        <div class="col-md-10">
+
+            <img class="form-control form-img" src="@Model.MediaURL" alt="Alternate Text" id="current-img" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MediaURL, "Upload new image", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <input type="file" name="image" value="" />
         </div>

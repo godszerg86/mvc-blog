@@ -1747,3 +1747,10 @@ section {
 #top_header, #btm-line {
     border-bottom: 2px solid black;
 }
+
+.form-img {
+    max-height: 200px;
+    height:50%;
+    max-width: 200px;
+    width:50%;
+}
