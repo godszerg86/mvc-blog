@@ -90,9 +90,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="entity_wrapper">
-                @*<div class="entity_title header_purple">
-                        <h1><a href="category.html" target="_blank">Mobile</a></h1>
-                    </div>*@
+
                 <!-- entity_title -->
 
                 <div class="entity_thumb">
@@ -101,10 +99,13 @@
                 <!-- entity_thumb -->
 
                 <div class="entity_title">
-                    <a href="single.html" target="_blank">
-                        <h3>
+                    <h2>
+                        @Html.ActionLink(@firsElement.Title, "DetailsSlug", new { slug = firsElement.Slug })
+                    </h2>
+                    <a href="/post/@firsElement.Slug" target="_blank">
+                        <h2>
                             @firsElement.Title
-                        </h3>
+                        </h2>
                     </a>
                 </div>
                 <!-- entity_title -->
@@ -115,7 +116,8 @@
                 <!-- entity_meta -->
 
                 <div class="entity_content">
-                    @StringTruncate.Truncate(firsElement.Body, 500)
+                    @StringTruncate.Truncate(firsElement.ShortBody, 500)...
+                    @Html.ActionLink("Read More", "DetailsSlug", new { slug = firsElement.Slug })
                 </div>
                 <!-- entity_content -->
 
@@ -142,9 +144,7 @@
 
                                 <div class="category_article_title">
                                     <h5>
-                                        <a href="single.html" target="_blank">
-                                            @myModelList[i].Title
-                                        </a>
+                                        @Html.ActionLink(myModelList[i].Title, "DetailsSlug", new { slug = myModelList[i].Slug })
                                     </h5>
                                 </div>
                                 <!-- category_article_title -->
@@ -155,7 +155,8 @@
                                 <!-- article_date -->
 
                                 <div class="category_article_content">
-                                    @StringTruncate.Truncate(myModelList[i].Body, 500)
+                                    @StringTruncate.Truncate(myModelList[i].ShortBody, 500)...
+                                    @Html.ActionLink("Read More", "DetailsSlug", new { slug = myModelList[i].Slug })
                                 </div>
                                 <!-- category_article_content -->
 
@@ -172,7 +173,7 @@
                     }
                 }
 
-               
+
 
             </div>
             <!-- row -->
@@ -208,43 +209,3 @@
 </div>
 <!-- container -->
 <!-- Subscriber Section -->
-
-<section id="footer_section" class="footer_section">
-    <div class="container">
-
-    </div>
-
-    <div class="footer_bottom_Section">
-        <div class="container">
-            <div class="row">
-                <div class="footer">
-                    <div class="col-sm-3">
-                        <div class="social">
-                            <!--Facebook-->
-                            <a class="icons-sm fb-ic"><i class="fa fa-facebook"></i></a>
-                            <!--GitHub-->
-
-                            <a class="icons-sm fb-ic"><i class="fa fa-github"></i></a>
-                            <!--Linkedin-->
-                            <a class="icons-sm tmb-ic"><i class="fa fa-linkedin"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>
-                            &copy; Copyright 2016-Tech News . Design by: <a href="https://uicookies.com">uiCookies</a>
-                        </p>
-                    </div>
-                    <div class="col-sm-3">
-                        <p>Technology News Magazine</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-          
-
-
-<a href="#" class="crunchify-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
-
-

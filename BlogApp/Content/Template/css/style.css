@@ -1676,7 +1676,6 @@ section {
 -----------------------------------------------*/
 
 .footer_bottom_Section {
-    border-top: 2px solid #000;
     padding: 30px 0;
     text-transform: uppercase;
     text-align: center;
@@ -1745,6 +1744,6 @@ section {
 
 /*My own styles*/
 
-#top_header {
+#top_header, #btm-line {
     border-bottom: 2px solid black;
 }

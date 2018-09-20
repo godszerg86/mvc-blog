@@ -1,74 +1,263 @@
 ﻿@model BlogApp.BlogPost
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.Title;
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>BlogPost</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
+<section id="entity_section" class="entity_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="entity_wrapper">
+                    <div class="entity_title">
+                        <h1>
+                            <a href="#">@Model.Title</a>
+                        </h1>
+                    </div>
+                    <!-- entity_title -->
 
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
+                    <div class="entity_meta">
+                        <a href="#" target="_self">@Model.Created.ToString("dd MMMM yyyy")</a>, by: <a href="#" target="_self">
+                            Eric
+                            joan
+                        </a>
+                    </div>
+                    <!-- entity_meta -->
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Updated)
-        </dt>
+                    <div class="entity_rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-full"></i>
+                    </div>
+                    <!-- entity_rating -->
 
-        <dd>
-            @Html.DisplayFor(model => model.Updated)
-        </dd>
+                    <div class="entity_social">
+                        <a href="#" class="icons-sm sh-ic">
+                            <i class="fa fa-share-alt"></i>
+                            <b>424</b> <span class="share_ic">Shares</span>
+                        </a>
+                        <a href="#" class="icons-sm fb-ic"><i class="fa fa-facebook"></i></a>
+                        <!--Twitter-->
+                        <a href="#" class="icons-sm tw-ic"><i class="fa fa-twitter"></i></a>
+                        <!--Google +-->
+                        <a href="#" class="icons-sm inst-ic"><i class="fa fa-google-plus"> </i></a>
+                        <!--Linkedin-->
+                        <a href="#" class="icons-sm tmb-ic"><i class="fa fa-ge"> </i></a>
+                        <!--Pinterest-->
+                        <a href="#" class="icons-sm rss-ic"><i class="fa fa-rss"> </i></a>
+                    </div>
+                    <!-- entity_social -->
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+                    <div class="entity_thumb">
+                        <img class="img-responsive" src="@Model.MediaURL" alt="feature-top">
+                    </div>
+                    <!-- entity_thumb -->
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+                    <div class="entity_content">
+                        @Model.Body
+                    </div>
+                    <!-- entity_content -->
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Slug)
-        </dt>
+                    <div class="entity_footer">
 
-        <dd>
-            @Html.DisplayFor(model => model.Slug)
-        </dd>
+                        <!-- entity_tag -->
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Body)
-        </dt>
+                        <div class="entity_social">
+                            <span><i class="fa fa-share-alt"></i>424 <a href="#">Shares</a> </span>
+                            <span><i class="fa fa-comments-o"></i>4 <a href="#">Comments</a> </span>
+                        </div>
+                        <!-- entity_social -->
 
-        <dd>
-            @Html.DisplayFor(model => model.Body)
-        </dd>
+                    </div>
+                    <!-- entity_footer -->
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MediaURL)
-        </dt>
+                </div>
+                <!-- entity_wrapper -->
+                >
 
-        <dd>
-            @Html.DisplayFor(model => model.MediaURL)
-        </dd>
+                <div class="readers_comment">
+                    <div class="entity_inner__title header_purple">
+                        <h2>Readers Comment</h2>
+                    </div>
+                    <!-- entity_title -->
+                    <!--
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <a href="#">
+                                                        <img alt="64x64" class="media-object" data-src="assets/img/reader_img1.jpg" src="assets/img/reader_img1.jpg"
+                                                            data-holder-rendered="true">
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h2 class="media-heading"><a href="#">Sr. Ryan</a></h2>
+                                                    But who has any right to find fault with a man who chooses to enjoy a pleasure that has
+                                                    no annoying consequences, or one who avoids a pain that produces no resultant pleasure?
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Published)
-        </dt>
+                                                    <div class="entity_vote">
+                                                        <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+                                                        <a href="#"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+                                                         <a href="#"><span class="reply_ic">Reply </span></a>
+                                                    </div>
+                                                    <div class="media">
+                                                        <div class="media-left">
+                                                            <a href="#">
+                                                                <img alt="64x64" class="media-object" data-src="assets/img/reader_img2.jpg"
+                                                                    src="assets/img/reader_img2.jpg" data-holder-rendered="true">
+                                                            </a>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <h2 class="media-heading"><a href="#">Admin</a></h2>
+                                                            But who has any right to find fault with a man who chooses to enjoy a pleasure
+                                                            that has no annoying consequences, or one who avoids a pain that produces no
+                                                            resultant pleasure?
 
-        <dd>
-            @Html.DisplayFor(model => model.Published)
-        </dd>
+                                                            <div class="entity_vote">
+                                                                <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+                                                                <a href="#"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+                                                                <a href="#"><span class="reply_ic">Reply </span></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                                            </div> -->
+                    <!-- media end -->
+
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img alt="64x64" class="media-object" data-src="assets/img/reader_img3.jpg" src="~/Content/Template/img/reader_img1.jpg"
+                                     data-holder-rendered="true">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h2 class="media-heading"><a href="#">S. Joshep</a></h2>
+                            But who has any right to find fault with a man who chooses to enjoy a pleasure that has
+                            no annoying consequences, or one who avoids a pain that produces no resultant pleasure?
+
+                            <div class="entity_vote">
+                                <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+                                <!-- <a href="#"><span class="reply_ic">Reply </span></a> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- media end -->
+                </div>
+                <!--Readers Comment-->
+
+                <div class="widget_advertisement">
+                    <img class="img-responsive" src="assets/img/category_advertisement.jpg" alt="feature-top">
+                </div>
+                <!--Advertisement-->
+
+                <div class="entity_comments">
+                    <div class="entity_inner__title header_black">
+                        <h2>Add a Comment</h2>
+                    </div>
+                    <!--Entity Title -->
+
+                    <div class="entity_comment_from">
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="inputName" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="inputEmail" placeholder="Email">
+                            </div>
+                            <div class="form-group comment">
+                                <textarea class="form-control" id="inputComment" placeholder="Comment"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-submit red">Submit</button>
+                        </form>
+                    </div>
+                    <!--Entity Comments From -->
+
+                </div>
+                <!--Entity Comments -->
+
+            </div>
+            <!--Left Section-->
+
+
+
+        </div>
+        <!-- row -->
+
+    </div>
+    <!-- container -->
+
+</section>
+<!-- Entity Section Wrapper -->
+@*<h2>Details</h2>
+
+    <div>
+        <h4>BlogPost</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Created)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Created)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Updated)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Updated)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Slug)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Slug)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Body)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Body)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MediaURL)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MediaURL)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Published)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Published)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@

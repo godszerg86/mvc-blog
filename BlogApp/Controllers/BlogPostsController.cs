@@ -35,6 +35,21 @@ namespace BlogApp.Models
             return View(blogPost);
         }
 
+        // GET: post/{slug}
+        public ActionResult DetailsSlug(string slug)
+        {
+            if (slug == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BlogPost blogPost = db.Posts.FirstOrDefault(item => item.Slug == slug);
+            if (blogPost == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Details",blogPost);
+        }
+
         // GET: BlogPosts/Create
         public ActionResult Create()
         {
