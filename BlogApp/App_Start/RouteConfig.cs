@@ -20,6 +20,12 @@ namespace BlogApp
                 );
 
             routes.MapRoute(
+              name: "Create",
+              url: "create/",
+              defaults: new { controller = "BlogPosts", action = "Create" }
+              );
+
+            routes.MapRoute(
                 name: "SlugsEdit",
                 url: "post/edit/{slug}",
                 defaults: new { controller = "BlogPosts", action = "EditSlug", slug = UrlParameter.Optional }
