@@ -47,7 +47,7 @@ namespace BlogApp.Models
             {
                 return HttpNotFound();
             }
-            return View("Details",blogPost);
+            return View("Details", blogPost);
         }
 
         // GET: BlogPosts/Create
@@ -99,12 +99,44 @@ namespace BlogApp.Models
         {
             if (ModelState.IsValid)
             {
-                db.Entry(blogPost).State = EntityState.Modified;
+                var dbBlogPost = db.Posts.FirstOrDefault(post => post.Id == blogPost.Id);
+                // if title changed - generate new Slug. If not keep the same
+                if (dbBlogPost.Title != blogPost.Title)
+                {
+                    var hash = blogPost.GetHashCode();
+                    dbBlogPost.Slug = Helpers.SlugConverter.URLFriendly(blogPost.Title) + "-" + hash;
+                }
+            
+                dbBlogPost.Title = blogPost.Title;
+                dbBlogPost.Body = blogPost.Body;
+                dbBlogPost.MediaURL = blogPost.MediaURL;
+                dbBlogPost.Published = blogPost.Published;
+                dbBlogPost.Updated = DateTimeOffset.Now;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(blogPost);
         }
+
+        // GET: post/edit/{slug}
+        public ActionResult EditSlug(string slug)
+        {
+            if (slug == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BlogPost blogPost = db.Posts.FirstOrDefault(post => post.Slug == slug);
+            if (blogPost == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Edit", blogPost);
+        }
+
+      
+
+
 
         // GET: BlogPosts/Delete/5
         public ActionResult Delete(int? id)

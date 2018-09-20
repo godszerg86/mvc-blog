@@ -18,10 +18,7 @@
                     <!-- entity_title -->
 
                     <div class="entity_meta">
-                        <a href="#" target="_self">@Model.Created.ToString("dd MMMM yyyy")</a>, by: <a href="#" target="_self">
-                            Eric
-                            joan
-                        </a>
+                        <a href="#" target="_self">@Model.Created.ToString("dd MMMM yyyy")</a>, by: <a href="#" target="_self">Eric joan</a>
                     </div>
                     <!-- entity_meta -->
 
@@ -57,7 +54,7 @@
                     <!-- entity_thumb -->
 
                     <div class="entity_content">
-                        @Model.Body
+                        @Html.Raw(Model.Body)
                     </div>
                     <!-- entity_content -->
 

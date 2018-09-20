@@ -99,10 +99,7 @@
                 <!-- entity_thumb -->
 
                 <div class="entity_title">
-                    <h2>
-                        @Html.ActionLink(@firsElement.Title, "DetailsSlug", new { slug = firsElement.Slug })
-                    </h2>
-                    <a href="/post/@firsElement.Slug" target="_blank">
+                    <a href="@Url.Action("DetailsSlug", "BlogPosts", new { slug = firsElement.Slug })" target="_blank">
                         <h2>
                             @firsElement.Title
                         </h2>
