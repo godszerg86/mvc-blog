@@ -17,17 +17,19 @@ namespace BlogApp
                 name: "Slugs",
                 url: "post/{slug}",
                 defaults: new { controller = "BlogPosts", action = "DetailsSlug", slug = UrlParameter.Optional }
-
-
                 );
 
             routes.MapRoute(
                 name: "SlugsEdit",
                 url: "post/edit/{slug}",
                 defaults: new { controller = "BlogPosts", action = "EditSlug", slug = UrlParameter.Optional }
-
-
                 );
+
+            routes.MapRoute(
+            name: "SlugsDelete",
+            url: "post/delete/{slug}",
+            defaults: new { controller = "BlogPosts", action = "DeleteSlug", slug = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                 name: "Default",

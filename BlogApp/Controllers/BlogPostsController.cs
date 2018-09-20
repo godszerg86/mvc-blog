@@ -158,6 +158,21 @@ namespace BlogApp.Models
             return View(blogPost);
         }
 
+        // GET: post/delete/{slug}
+        public ActionResult DeleteSlug(string slug)
+        {
+            if (slug == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            BlogPost blogPost = db.Posts.FirstOrDefault(post => post.Slug == slug);
+            if (blogPost == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Delete",blogPost);
+        }
+
         // POST: BlogPosts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
