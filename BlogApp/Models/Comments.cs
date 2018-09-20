@@ -8,10 +8,7 @@ namespace BlogApp
 {
     public class Comments
     {
-        //public Comments() 
-        //    {
-        //        Author
-        //    }
+        
         
         public int Id { get; set; }
 

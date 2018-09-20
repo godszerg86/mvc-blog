@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -61,11 +62,15 @@ namespace BlogApp.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Body,MediaURL,Published,ShortBody")] BlogPost blogPost)
+        public ActionResult Create([Bind(Include = "Id,Title,Body,Published,ShortBody")] BlogPost blogPost, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
                 var hash = blogPost.GetHashCode();
+                // next line convert file name into web friend (no white spaces and etc) and concate with "-hash" in case if file with the same name already on a sever
+                var fileName = Helpers.SlugConverter.URLFriendly(Path.GetFileNameWithoutExtension(image.FileName)) + "-" + hash.ToString() + Path.GetExtension(image.FileName);
+                image.SaveAs(Path.Combine(Server.MapPath("~/uploads/img/"), fileName));
+                blogPost.MediaURL = "/uploads/img/" + fileName;
                 blogPost.Slug = Helpers.SlugConverter.URLFriendly(blogPost.Title) + "-" + hash;
                 db.Posts.Add(blogPost);
                 db.SaveChanges();
@@ -106,7 +111,7 @@ namespace BlogApp.Models
                     var hash = blogPost.GetHashCode();
                     dbBlogPost.Slug = Helpers.SlugConverter.URLFriendly(blogPost.Title) + "-" + hash;
                 }
-            
+
                 dbBlogPost.Title = blogPost.Title;
                 dbBlogPost.Body = blogPost.Body;
                 dbBlogPost.MediaURL = blogPost.MediaURL;
@@ -134,7 +139,7 @@ namespace BlogApp.Models
             return View("Edit", blogPost);
         }
 
-      
+
 
 
 
