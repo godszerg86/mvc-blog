@@ -108,16 +108,22 @@ namespace BlogApp.Models
             if (ModelState.IsValid)
             {
                 var dbBlogPost = db.Posts.FirstOrDefault(post => post.Id == blogPost.Id);
+                var hash = blogPost.GetHashCode();
+                if (Image != null)
+                {
+                    var fileName = Helpers.SlugConverter.URLFriendly(Path.GetFileNameWithoutExtension(Image.FileName)) + "-" + hash + Path.GetExtension(Image.FileName);
+                    Image.SaveAs(Path.Combine(Server.MapPath("~/uploads/img/"), fileName));
+                    dbBlogPost.MediaURL = "/uploads/img/" + fileName;
+                } 
                 // if title changed - generate new Slug. If not keep the same
                 if (dbBlogPost.Title != blogPost.Title)
                 {
-                    var hash = blogPost.GetHashCode();
                     dbBlogPost.Slug = Helpers.SlugConverter.URLFriendly(blogPost.Title) + "-" + hash;
                 }
 
                 dbBlogPost.Title = blogPost.Title;
                 dbBlogPost.Body = blogPost.Body;
-                dbBlogPost.MediaURL = blogPost.MediaURL;
+                
                 dbBlogPost.Published = blogPost.Published;
                 dbBlogPost.Updated = DateTimeOffset.Now;
 
