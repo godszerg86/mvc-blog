@@ -36,11 +36,12 @@ namespace BlogApp.Migrations
                 roleManager.Create(new IdentityRole { Name = "Moderator" });
             }
 
-            ApplicationUser adminUser = null; // why not new () like below
+            //admin
+
+            ApplicationUser adminUser = new ApplicationUser(); 
 
             if (!context.Users.Any(item => item.UserName == "admin@admin.com"))
             {
-                adminUser = new ApplicationUser(); //questiion why?
                 adminUser.UserName = "admin@admin.com";
                 adminUser.Email = "admin@admin.com";
                 adminUser.LastName = "Admin";
@@ -48,15 +49,38 @@ namespace BlogApp.Migrations
                 adminUser.DisplayName = "z3rg";
                 
 
-                userManager.Create(adminUser, "Password-1");
+                userManager.Create(adminUser, "admin@admin.com");
             } else
             {
-                adminUser = context.Users.FirstOrDefault(item => item.UserName == "admin@admin.com"); // point of else?
+                adminUser = context.Users.FirstOrDefault(item => item.UserName == "admin@admin.com"); 
             }
 
             if (!userManager.IsInRole(adminUser.Id,"Admin"))
             {
                 userManager.AddToRole(adminUser.Id, "Admin");
+            }
+            //Moderator
+
+            ApplicationUser moderatorUser = new ApplicationUser();
+            if (!context.Users.Any(item => item.UserName == "moderator@moderator.com"))
+            {
+                moderatorUser.UserName = "moderator@moderator.com";
+                moderatorUser.Email = "moderator@moderator.com";
+                moderatorUser.LastName = "Moderator";
+                moderatorUser.FirstName = "MD";
+                moderatorUser.DisplayName = "DM";
+
+
+                userManager.Create(moderatorUser, "moderator@moderator.com");
+            }
+            else
+            {
+                moderatorUser = context.Users.FirstOrDefault(item => item.UserName == "moderator@moderator.com");
+            }
+
+            if (!userManager.IsInRole(moderatorUser.Id, "Moderator"))
+            {
+                userManager.AddToRole(moderatorUser.Id, "Moderator");
             }
 
         }

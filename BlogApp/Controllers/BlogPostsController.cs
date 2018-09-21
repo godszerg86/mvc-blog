@@ -99,6 +99,7 @@ namespace BlogApp.Models
         }
 
         // POST: BlogPosts/Edit/5
+        //:TODO Add delte image from old image from server!
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -114,7 +115,7 @@ namespace BlogApp.Models
                     var fileName = Helpers.SlugConverter.URLFriendly(Path.GetFileNameWithoutExtension(Image.FileName)) + "-" + hash + Path.GetExtension(Image.FileName);
                     Image.SaveAs(Path.Combine(Server.MapPath("~/uploads/img/"), fileName));
                     dbBlogPost.MediaURL = "/uploads/img/" + fileName;
-                } 
+                }
                 // if title changed - generate new Slug. If not keep the same
                 if (dbBlogPost.Title != blogPost.Title)
                 {
@@ -123,7 +124,7 @@ namespace BlogApp.Models
 
                 dbBlogPost.Title = blogPost.Title;
                 dbBlogPost.Body = blogPost.Body;
-                
+
                 dbBlogPost.Published = blogPost.Published;
                 dbBlogPost.Updated = DateTimeOffset.Now;
 
@@ -187,7 +188,11 @@ namespace BlogApp.Models
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
             BlogPost blogPost = db.Posts.Find(id);
+            //var dir = HttpRuntime.AspInstallDirectory;
+            var strFile = Server.MapPath("~/"+blogPost.MediaURL);
+            System.IO.File.Delete(strFile);
             db.Posts.Remove(blogPost);
             db.SaveChanges();
             return RedirectToAction("Index");
