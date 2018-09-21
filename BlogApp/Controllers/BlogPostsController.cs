@@ -110,8 +110,14 @@ namespace BlogApp.Models
             {
                 var dbBlogPost = db.Posts.FirstOrDefault(post => post.Id == blogPost.Id);
                 var hash = blogPost.GetHashCode();
+
+                //check if image was changed
                 if (Image != null)
                 {
+                    //delete previous image first
+                    var strFile = Server.MapPath("~/" + dbBlogPost.MediaURL);
+                    System.IO.File.Delete(strFile);
+                    //upload new image
                     var fileName = Helpers.SlugConverter.URLFriendly(Path.GetFileNameWithoutExtension(Image.FileName)) + "-" + hash + Path.GetExtension(Image.FileName);
                     Image.SaveAs(Path.Combine(Server.MapPath("~/uploads/img/"), fileName));
                     dbBlogPost.MediaURL = "/uploads/img/" + fileName;
@@ -190,7 +196,6 @@ namespace BlogApp.Models
         {
 
             BlogPost blogPost = db.Posts.Find(id);
-            //var dir = HttpRuntime.AspInstallDirectory;
             var strFile = Server.MapPath("~/"+blogPost.MediaURL);
             System.IO.File.Delete(strFile);
             db.Posts.Remove(blogPost);
