@@ -53,7 +53,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.MediaURL, "Upload new image", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" name="image" value="" />
+
+                @Html.TextBoxFor(m => m.Image, new { type = "file" })
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+
+                @*<input type="file" name="image" value="" />*@
             </div>
         </div>
         @Html.HiddenFor(model => model.ShortBody)
