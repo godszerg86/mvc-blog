@@ -1,76 +1,6 @@
 ﻿@model IEnumerable<BlogApp.BlogPost>
 @using BlogApp.Helpers;
 
-@{
-    ViewBag.Title = "Index";
-
-}
-
-@*<h2>Index</h2>
-
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Updated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Slug)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Body)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MediaURL)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Published)
-            </th>
-            <th></th>
-        </tr>*@
-
-@*@foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Updated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Slug)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Body)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MediaURL)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Published)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-
-            </td>
-        </tr>
-    }
-
-    </table>*@
 
 
 @{
@@ -82,60 +12,65 @@
     var myModelList = Model.ToList();
 }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 
 <div class="container">
-    <div class="row">
+    
+    <div class="row" style="padding:20px">
         <div class="col-md-12">
             <div class="entity_wrapper">
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="entity_thumb">
+                            <img class="img-hero" src="@firsElement.MediaURL" alt="feature-top">
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5" style="background-color: rgba(255, 255, 255, 0.82); color: black; padding-right: 34px;">
+                        <div class="entity_title">
+                            <a href="@Url.Action("DetailsSlug", "BlogPosts", new { slug = firsElement.Slug })" target="_blank">
+                                <h2>
+                                    @firsElement.Title
+                                </h2>
+                            </a>
+                        </div>
+                        <!-- entity_title -->
 
-                <!-- entity_title -->
+                        <div class="entity_meta">
+                            <a href="#">@firsElement.Created.ToString("dd MMMM yyyy")</a>, by: <a href="#">Eric joan</a>
+                        </div>
+                        <!-- entity_meta -->
 
-                <div class="entity_thumb">
-                    <img class="img-responsive" src="@firsElement.MediaURL" alt="feature-top">
+                        <div class="entity_content">
+                            @StringTruncate.Truncate(firsElement.ShortBody, 500)...
+                            @Html.ActionLink("Read More", "DetailsSlug", new { slug = firsElement.Slug })
+                        </div>
+                        <!-- entity_content -->
+
+                        <div class="entity_social">
+                            <span><i class="fa fa-share-alt"></i>424 <a href="#">Shares</a> </span>
+                            <span><i class="fa fa-comments-o"></i>4 <a href="#">Comments</a> </span>
+                        </div>
+                    </div>
+                    <!-- entity_title -->
+                    @*<div class="entity_thumb">
+                            <img class="img-hero" src="@firsElement.MediaURL" alt="feature-top">
+                        </div>*@
+                    <!-- entity_thumb -->
+
+              
                 </div>
-                <!-- entity_thumb -->
-
-                <div class="entity_title">
-                    <a href="@Url.Action("DetailsSlug", "BlogPosts", new { slug = firsElement.Slug })" target="_blank">
-                        <h2>
-                            @firsElement.Title
-                        </h2>
-                    </a>
-                </div>
-                <!-- entity_title -->
-
-                <div class="entity_meta">
-                    <a href="#">@firsElement.Created.ToString("dd MMMM yyyy")</a>, by: <a href="#">Eric joan</a>
-                </div>
-                <!-- entity_meta -->
-
-                <div class="entity_content">
-                    @StringTruncate.Truncate(firsElement.ShortBody, 500)...
-                    @Html.ActionLink("Read More", "DetailsSlug", new { slug = firsElement.Slug })
-                </div>
-                <!-- entity_content -->
-
-                <div class="entity_social">
-                    <span><i class="fa fa-share-alt"></i>424 <a href="#">Shares</a> </span>
-                    <span><i class="fa fa-comments-o"></i>4 <a href="#">Comments</a> </span>
-                </div>
-                <!-- entity_social -->
-
             </div>
             <!-- entity_wrapper -->
 
             <div class="row">
-
+                <hr />
                 @{
                     for (int i = 1; i < myModelList.Count(); i++)
                     {
                         <div class="col-md-6">
                             <div class="category_article_body">
                                 <div class="top_article_img">
-                                    <img class="img-fluid" src="@myModelList[i].MediaURL" alt="feature-top">
+                                    <img class="img-post" src="@myModelList[i].MediaURL" alt="feature-top">
                                 </div>
                                 <!-- top_article_img -->
 

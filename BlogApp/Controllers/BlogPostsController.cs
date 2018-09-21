@@ -115,8 +115,8 @@ namespace BlogApp.Models
                 if (Image != null)
                 {
                     //delete previous image first
-                    var strFile = Server.MapPath("~/" + dbBlogPost.MediaURL);
-                    System.IO.File.Delete(strFile);
+                    //var strFile = Server.MapPath("~/" + dbBlogPost.MediaURL);
+                    //System.IO.File.Delete(strFile);
                     //upload new image
                     var fileName = Helpers.SlugConverter.URLFriendly(Path.GetFileNameWithoutExtension(Image.FileName)) + "-" + hash + Path.GetExtension(Image.FileName);
                     Image.SaveAs(Path.Combine(Server.MapPath("~/uploads/img/"), fileName));
@@ -197,7 +197,7 @@ namespace BlogApp.Models
 
             BlogPost blogPost = db.Posts.Find(id);
             var strFile = Server.MapPath("~/"+blogPost.MediaURL);
-            System.IO.File.Delete(strFile);
+            //System.IO.File.Delete(strFile);
             db.Posts.Remove(blogPost);
             db.SaveChanges();
             return RedirectToAction("Index");

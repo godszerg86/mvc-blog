@@ -139,6 +139,10 @@ namespace BlogApp.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return View("Index",);
+            }
             return View();
         }
 
