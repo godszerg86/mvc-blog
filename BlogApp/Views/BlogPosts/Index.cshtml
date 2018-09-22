@@ -27,7 +27,7 @@
                     <div class="col-md-1"></div>
                     <div class="col-md-5" style="background-color: rgba(255, 255, 255, 0.82); color: black; padding-right: 34px;">
                         <div class="entity_title">
-                            <a href="@Url.Action("DetailsSlug", "BlogPosts", new { slug = firsElement.Slug })" target="_blank">
+                            <a href="@Url.Action("DetailsSlug", "BlogPosts", new { slug = firsElement.Slug })">
                                 <h2>
                                     @firsElement.Title
                                 </h2>
@@ -69,8 +69,8 @@
                     {
                         <div class="col-md-6">
                             <div class="category_article_body">
-                                <div class="top_article_img">
-                                    <img class="img-post" src="@myModelList[i].MediaURL" alt="feature-top">
+                                <div class="top_article_img" style="background: url('@myModelList[i].MediaURL') no-repeat center;">
+                                    
                                 </div>
                                 <!-- top_article_img -->
 
