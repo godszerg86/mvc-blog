@@ -20,11 +20,14 @@ namespace BlogApp
         public int Id { get; set; }
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset? Updated { get; set; }
+
+        [Required(ErrorMessage = "The Title field is required for Post.")]
         public string Title { get; set; }
+
         public string Slug { get; set; }
 
         [NotMapped]
-        [RegularExpression(@"(.)+(.png|.jpg|.gif)$", ErrorMessage = "Only Image files allowed. (.png, .jpg, .gif)")]
+        [RegularExpression(@"(.)+(.png|.jpg|.gif|.jpeg)$", ErrorMessage = "Only Image files allowed. (.png, .jpg, .gif, .jpeg)")]
         public HttpPostedFileBase Image { get; set; }
 
         [AllowHtml]

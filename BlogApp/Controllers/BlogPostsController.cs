@@ -52,10 +52,11 @@ namespace BlogApp.Models
         }
 
         // GET: BlogPosts/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
-            
+
         }
 
         // POST: BlogPosts/Create
@@ -63,6 +64,7 @@ namespace BlogApp.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "Id,Title,Body,Published,ShortBody")] BlogPost blogPost, HttpPostedFileBase Image)
         {
             if (ModelState.IsValid)
@@ -70,14 +72,21 @@ namespace BlogApp.Models
                 var userDisplayName = db.Users.FirstOrDefault(item => item.UserName == User.Identity.Name).DisplayName;
                 var hash = blogPost.GetHashCode();
                 // next line convert file name into web friend (no white spaces and etc) and concate with "-hash" in case if file with the same name already on a sever
+
                 if (Image != null)
                 {
                     var fileName = Helpers.SlugConverter.URLFriendly(Path.GetFileNameWithoutExtension(Image.FileName)) + "-" + hash.ToString() + Path.GetExtension(Image.FileName);
                     Image.SaveAs(Path.Combine(Server.MapPath("~/uploads/img/"), fileName));
                     blogPost.MediaURL = "/uploads/img/" + fileName;
                 }
+                else
+                {
+                    blogPost.MediaURL = "/assets/img/500.png";
+                }
+
                 blogPost.Slug = Helpers.SlugConverter.URLFriendly(blogPost.Title) + "-" + hash;
                 blogPost.PostAuthor = userDisplayName;
+                blogPost.Body = CheckBody(blogPost);
                 db.Posts.Add(blogPost);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -87,6 +96,7 @@ namespace BlogApp.Models
         }
 
         // GET: BlogPosts/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -107,6 +117,7 @@ namespace BlogApp.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,Title,Body,Published")] BlogPost blogPost, HttpPostedFileBase Image)
         {
             if (ModelState.IsValid)
@@ -117,9 +128,12 @@ namespace BlogApp.Models
                 //check if image was changed
                 if (Image != null)
                 {
-                    //delete previous image first
-                    //var strFile = Server.MapPath("~/" + dbBlogPost.MediaURL);
-                    //System.IO.File.Delete(strFile);
+                    //delete previous image first only if it is not a placeholder image from assets folder
+                    if (!dbBlogPost.MediaURL.EndsWith("/assets/img/500.png"))
+                    {
+                        var strFile = Server.MapPath("~/" + dbBlogPost.MediaURL);
+                        System.IO.File.Delete(strFile);
+                    }
                     //upload new image
                     var fileName = Helpers.SlugConverter.URLFriendly(Path.GetFileNameWithoutExtension(Image.FileName)) + "-" + hash + Path.GetExtension(Image.FileName);
                     Image.SaveAs(Path.Combine(Server.MapPath("~/uploads/img/"), fileName));
@@ -132,7 +146,7 @@ namespace BlogApp.Models
                 }
 
                 dbBlogPost.Title = blogPost.Title;
-                dbBlogPost.Body = blogPost.Body;
+                dbBlogPost.Body = CheckBody(blogPost);
 
                 dbBlogPost.Published = blogPost.Published;
                 dbBlogPost.Updated = DateTimeOffset.Now;
@@ -144,6 +158,7 @@ namespace BlogApp.Models
         }
 
         // GET: post/edit/{slug}
+        [Authorize(Roles = "Admin")]
         public ActionResult EditSlug(string slug)
         {
             if (slug == null)
@@ -163,6 +178,7 @@ namespace BlogApp.Models
 
 
         // GET: BlogPosts/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -178,6 +194,7 @@ namespace BlogApp.Models
         }
 
         // GET: post/delete/{slug}
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteSlug(string slug)
         {
             if (slug == null)
@@ -195,16 +212,33 @@ namespace BlogApp.Models
         // POST: BlogPosts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
 
             BlogPost blogPost = db.Posts.Find(id);
-            var strFile = Server.MapPath("~/"+blogPost.MediaURL);
-            //System.IO.File.Delete(strFile);
+            if (!blogPost.MediaURL.EndsWith("/assets/img/500.png"))
+            {
+
+                var strFile = Server.MapPath("~/" + blogPost.MediaURL);
+                System.IO.File.Delete(strFile);
+            }
             db.Posts.Remove(blogPost);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        private static string CheckBody(BlogPost blogPost)
+        {
+            if (blogPost.Body == null)
+            {
+                blogPost.ShortBody = "Here should be a article text of the post";
+                return "<strong>Here should be a article text of the post</strong>";
+            }
+            return blogPost.Body;
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {
