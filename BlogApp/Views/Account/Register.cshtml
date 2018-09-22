@@ -33,8 +33,8 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" class="btn btn-default" value="Register" />
-                        <input type="button" value="Log In" class="btn btn-default" onclick="location.href='@Url.Action("Login","Account")'" />
+                        <input type="submit" class="btn btn-success" value="Register" />
+                        <input type="button" value="Log In" class="btn btn-default" onclick="location.href='@Url.Action("Login","Account",new { ReturnUrl = HttpContext.Current.Request.RawUrl })'" />
                     </div>
                 </div>
             }
