@@ -55,6 +55,7 @@ namespace BlogApp.Models
         public ActionResult Create()
         {
             return View();
+            
         }
 
         // POST: BlogPosts/Create
@@ -66,6 +67,7 @@ namespace BlogApp.Models
         {
             if (ModelState.IsValid)
             {
+                var userDisplayName = db.Users.FirstOrDefault(item => item.UserName == User.Identity.Name).DisplayName;
                 var hash = blogPost.GetHashCode();
                 // next line convert file name into web friend (no white spaces and etc) and concate with "-hash" in case if file with the same name already on a sever
                 if (Image != null)
@@ -75,6 +77,7 @@ namespace BlogApp.Models
                     blogPost.MediaURL = "/uploads/img/" + fileName;
                 }
                 blogPost.Slug = Helpers.SlugConverter.URLFriendly(blogPost.Title) + "-" + hash;
+                blogPost.PostAuthor = userDisplayName;
                 db.Posts.Add(blogPost);
                 db.SaveChanges();
                 return RedirectToAction("Index");

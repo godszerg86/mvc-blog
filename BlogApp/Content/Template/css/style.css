@@ -885,10 +885,14 @@ section {
 }
 
 .category_article_body {
-    position        : relative;
-    bottom          : 0;
-    left            : 0;
-    right           : 0;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    height: 670px;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid rgba(0, 0, 0,0.2);
 }
 .category_article_list{
     margin-top: 30px;

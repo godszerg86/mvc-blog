@@ -42,7 +42,7 @@ namespace BlogApp.Migrations
 
             if (!context.Users.Any(item => item.UserName == "admin@admin.com"))
             {
-                adminUser.UserName = "z3rg";
+                adminUser.UserName = "admin@admin.com";
                 adminUser.Email = "admin@admin.com";
                 adminUser.LastName = "Admin";
                 adminUser.FirstName = "Zerg";

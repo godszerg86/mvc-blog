@@ -15,6 +15,7 @@ namespace BlogApp.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -141,7 +142,7 @@ namespace BlogApp.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View("Index",);
+                return RedirectToAction("Index","BlogPosts");
             }
             return View();
         }
@@ -396,7 +397,7 @@ namespace BlogApp.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "BlogPosts");
         }
 
         //
