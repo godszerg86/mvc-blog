@@ -9,19 +9,17 @@
     @Scripts.Render("~/bundles/modernizr")
 
     <!-- favicon -->
-    <link href="assets/img/favicon.png" rel=icon>
-
     <!-- web-fonts -->
     <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,500' rel='stylesheet' type='text/css'>
 
     <!-- font-awesome -->
-    <link href="~/Content/Template/fonts/font-awesome/font-awesome.min.css" rel="stylesheet">
     <!-- Mobile Menu Style -->
-    <link href="~/Content/Template/css/mobile-menu.css" rel="stylesheet">
+    @*<link href="~/Content/Template/css/mobile-menu.css" rel="stylesheet">*@
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <!-- Owl carousel -->
-    <link href="~/Content/Template/css/owl.carousel.css" rel="stylesheet">
-    <link href="~/Content/Template/css/owl.theme.default.min.css" rel="stylesheet">
+    @*<link href="~/Content/Template/css/owl.carousel.css" rel="stylesheet">
+        <link href="~/Content/Template/css/owl.theme.default.min.css" rel="stylesheet">*@
     <!-- Theme Style -->
     <link href="~/Content/Template/css/style.css" rel="stylesheet">
 
@@ -50,7 +48,7 @@
                     <div class="container" id="top_header">
                         <div class="header-section">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-sm-4">
                                     <div class="left_section">
                                         <span class="date">
                                             @DateTime.Now.ToString("dddd") .
@@ -62,31 +60,31 @@
                                         <!-- Time -->
                                         <div class="social">
                                             <!--Facebook-->
-                                            <a class="icons-sm fb-ic"><i class="fa fa-facebook"></i></a>
+                                            <a class="icons-sm fb-ic"><i class="fab fa-facebook-square"></i></a>
                                             <!--GitHub-->
 
-                                            <a class="icons-sm fb-ic"><i class="fa fa-github"></i></a>
+                                            <a class="icons-sm fb-ic"><i class="fab fa-github-square"></i></a>
                                             <!--Linkedin-->
-                                            <a class="icons-sm tmb-ic"><i class="fa fa-linkedin"></i></a>
+                                            <a class="icons-sm tmb-ic"><i class="fab fa-linkedin"></i></a>
 
                                         </div>
                                         <!-- Top Social Section -->
                                     </div>
                                     <!-- Left Header Section -->
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-sm-4">
                                     <div class="logo">
                                         <a href="/"><img src="~/Content/Template/img/logo.png" alt="Tech NewsLogo"></a>
                                     </div>
                                     <!-- Logo Section -->
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-sm-4">
                                     <div class="right_section">
                                         <ul class="nav navbar-nav">
 
                                             @Html.Partial("_LoginPartial")
                                             @*<li><a href="" data-toggle="modal" data-target="#loginModal">Login</a></li>
-                                            <li><a href="" data-toggle="modal" data-target="#registerModal">Register</a></li>*@
+                                                <li><a href="" data-toggle="modal" data-target="#registerModal">Register</a></li>*@
                                             <li class="dropdown">
                                                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">
                                                     <i class="fa fa-search"></i>
@@ -146,12 +144,12 @@
                         <div class="col-sm-3">
                             <div class="social">
                                 <!--Facebook-->
-                                <a class="icons-sm fb-ic"><i class="fa fa-facebook"></i></a>
+                                <a class="icons-sm fb-ic"><i class="fab fa-facebook-square"></i></a>
                                 <!--GitHub-->
 
-                                <a class="icons-sm fb-ic"><i class="fa fa-github"></i></a>
+                                <a class="icons-sm fb-ic"><i class="fab fa-github-square"></i></a>
                                 <!--Linkedin-->
-                                <a class="icons-sm tmb-ic"><i class="fa fa-linkedin"></i></a>
+                                <a class="icons-sm tmb-ic"><i class="fab fa-linkedin"></i></a>
                             </div>
                         </div>
                         <div class="col-sm-6">

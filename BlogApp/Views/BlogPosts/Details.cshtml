@@ -18,7 +18,15 @@
                     <!-- entity_title -->
 
                     <div class="entity_meta">
-                        <a href="#" target="_self">@Model.Created.ToString("dd MMMM yyyy")</a>, by: <a href="#" target="_self">@Model.PostAuthor</a>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-12">
+                                <a href="#" target="_self">@Model.Created.ToString("dd MMMM yyyy")</a>, by: <a href="#" target="_self">@Model.PostAuthor</a>
+                            </div>
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="pull-right"><a href="@Url.Action("EditSlug","BlogPosts",new{ slug = Model.Slug})"><i class="far fa-edit"></i> Edit</a><a style="margin-left:10px;" href="@Url.Action("DeleteSlug","BlogPosts",new{ slug = Model.Slug})"><i class="far fa-trash-alt"></i> Delete</a></div>
+                            </div>
+                        </div>
                     </div>
                     <!-- entity_meta -->
 
@@ -36,15 +44,14 @@
                             <i class="fa fa-share-alt"></i>
                             <b>424</b> <span class="share_ic">Shares</span>
                         </a>
-                        <a href="#" class="icons-sm fb-ic"><i class="fa fa-facebook"></i></a>
+                        <a href="#" class="icons-sm fb-ic"><i class="fab fa-facebook-square"></i></a>
                         <!--Twitter-->
-                        <a href="#" class="icons-sm tw-ic"><i class="fa fa-twitter"></i></a>
+                        <a href="#" class="icons-sm tw-ic"><i class="fab fa-twitter-square"></i></i></a>
                         <!--Google +-->
-                        <a href="#" class="icons-sm inst-ic"><i class="fa fa-google-plus"> </i></a>
+                        <a href="#" class="icons-sm inst-ic"><i class="fab fa-google-plus-square"></i></a>
                         <!--Linkedin-->
-                        <a href="#" class="icons-sm tmb-ic"><i class="fa fa-ge"> </i></a>
+                        <a href="#" class="icons-sm tmb-ic"><i class="fab fa-linkedin"></i></a>
                         <!--Pinterest-->
-                        <a href="#" class="icons-sm rss-ic"><i class="fa fa-rss"> </i></a>
                     </div>
                     <!-- entity_social -->
 
@@ -146,7 +153,7 @@
                 </div>
                 <!--Readers Comment-->
 
-             
+
 
                 <div class="entity_comments">
                     <div class="entity_inner__title header_black">
