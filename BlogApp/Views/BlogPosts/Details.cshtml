@@ -24,7 +24,7 @@
                                 <a href="#" target="_self">@Model.Created.ToString("dd MMMM yyyy")</a>, by: <a href="#" target="_self">@Model.PostAuthor</a>
                             </div>
                             <div class="col-sm-6 col-xs-12">
-                                <div class="pull-right"><a href="@Url.Action("EditSlug","BlogPosts",new{ slug = Model.Slug})"><i class="far fa-edit"></i> Edit</a><a style="margin-left:10px;" href="@Url.Action("DeleteSlug","BlogPosts",new{ slug = Model.Slug})"><i class="far fa-trash-alt"></i> Delete</a></div>
+                                <div class="pull-right"><a href="@Url.Action("EditSlug","BlogPosts")"><i class="far fa-edit"></i> Edit</a><a style="margin-left:10px;" href="@Url.Action("DeleteSlug","BlogPosts")"><i class="far fa-trash-alt"></i> Delete</a></div>
                             </div>
                         </div>
                     </div>
