@@ -8,8 +8,8 @@
 }
 
 @{
-    var firsElement = Model.FirstOrDefault();
-    var myModelList = Model.ToList();
+    var myModelList = Model.Reverse().ToList();
+    var firsElement = myModelList.FirstOrDefault();
 }
 
 
