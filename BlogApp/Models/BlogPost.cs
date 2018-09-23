@@ -40,5 +40,8 @@ namespace BlogApp
         public string MediaURL { get; set; }
         public bool Published { get; set; }
         public virtual ICollection<Comments> Comments { get; set; }
+
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }

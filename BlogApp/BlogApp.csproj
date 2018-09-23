@@ -196,6 +196,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Helpers\SlugConverter.cs" />
     <Compile Include="Helpers\StringTruncate.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comments.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

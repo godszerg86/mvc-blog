@@ -38,7 +38,7 @@ namespace BlogApp.Migrations
 
             //admin
 
-            ApplicationUser adminUser = new ApplicationUser(); 
+            ApplicationUser adminUser = new ApplicationUser();
 
             if (!context.Users.Any(item => item.UserName == "admin@admin.com"))
             {
@@ -47,15 +47,16 @@ namespace BlogApp.Migrations
                 adminUser.LastName = "Admin";
                 adminUser.FirstName = "Zerg";
                 adminUser.DisplayName = "z3rg";
-                
+
 
                 userManager.Create(adminUser, "admin@admin.com");
-            } else
+            }
+            else
             {
-                adminUser = context.Users.FirstOrDefault(item => item.UserName == "admin@admin.com"); 
+                adminUser = context.Users.FirstOrDefault(item => item.UserName == "admin@admin.com");
             }
 
-            if (!userManager.IsInRole(adminUser.Id,"Admin"))
+            if (!userManager.IsInRole(adminUser.Id, "Admin"))
             {
                 userManager.AddToRole(adminUser.Id, "Admin");
             }
@@ -82,6 +83,16 @@ namespace BlogApp.Migrations
             {
                 userManager.AddToRole(moderatorUser.Id, "Moderator");
             }
+
+
+            // seed categories with base names
+            context.Categories.AddOrUpdate(item => item.Id,
+                new Category() { CategoryName = "Laptops" },
+                new Category() { CategoryName = "PC" },
+                new Category() { CategoryName = "Mobile" },
+                new Category() { CategoryName = "Console" },
+                new Category() { CategoryName = "Other" }
+                );
 
         }
     }

@@ -48,6 +48,7 @@ namespace BlogApp.Models
 
         public DbSet<BlogPost> Posts { get; set; }
         public DbSet<Comments> Comments { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
 
     }

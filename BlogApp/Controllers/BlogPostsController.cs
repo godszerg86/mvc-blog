@@ -48,6 +48,7 @@ namespace BlogApp.Models
             {
                 return HttpNotFound();
             }
+            blogPost.Category = db.Categories.Find(blogPost.CategoryId);
             return View("Details", blogPost);
         }
 
@@ -55,6 +56,7 @@ namespace BlogApp.Models
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "CategoryName");
             return View();
 
         }
@@ -65,7 +67,7 @@ namespace BlogApp.Models
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create([Bind(Include = "Id,Title,Body,Published,ShortBody")] BlogPost blogPost, HttpPostedFileBase Image)
+        public ActionResult Create([Bind(Include = "Id,Title,Body,Published,ShortBody,CategoryId")] BlogPost blogPost, HttpPostedFileBase Image)
         {
             if (ModelState.IsValid)
             {
@@ -86,12 +88,18 @@ namespace BlogApp.Models
 
                 blogPost.Slug = Helpers.SlugConverter.URLFriendly(blogPost.Title) + "-" + hash;
                 blogPost.PostAuthor = userDisplayName;
-                blogPost.Body = CheckBody(blogPost);
+                if (blogPost.Body == null)
+                {
+                    blogPost.ShortBody = "Here should be a article text of the post";
+                    blogPost.Body = "<strong>Here should be a article text of the post</strong>";
+                }
+            
+
                 db.Posts.Add(blogPost);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "CategoryName");
             return View(blogPost);
         }
 
@@ -108,6 +116,7 @@ namespace BlogApp.Models
             {
                 return HttpNotFound();
             }
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "CategoryName", blogPost.CategoryId);
             return View(blogPost);
         }
 
@@ -118,7 +127,7 @@ namespace BlogApp.Models
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit([Bind(Include = "Id,Title,Body,Published")] BlogPost blogPost, HttpPostedFileBase Image)
+        public ActionResult Edit([Bind(Include = "Id,Title,Body,Published,CategoryId,ShortBody")] BlogPost blogPost, HttpPostedFileBase Image)
         {
             if (ModelState.IsValid)
             {
@@ -146,14 +155,24 @@ namespace BlogApp.Models
                 }
 
                 dbBlogPost.Title = blogPost.Title;
-                dbBlogPost.Body = CheckBody(blogPost);
 
+                if (blogPost.Body == null)
+                {
+                    dbBlogPost.ShortBody = "Here should be a article text of the post";
+                    dbBlogPost.Body =  "<strong>Here should be a article text of the post</strong>";
+                } else
+                {
+                    dbBlogPost.ShortBody = blogPost.ShortBody;
+                    dbBlogPost.Body = blogPost.Body;
+                }
+                dbBlogPost.CategoryId = blogPost.CategoryId;
                 dbBlogPost.Published = blogPost.Published;
                 dbBlogPost.Updated = DateTimeOffset.Now;
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "CategoryName", blogPost.CategoryId);
             return View(blogPost);
         }
 
@@ -170,6 +189,7 @@ namespace BlogApp.Models
             {
                 return HttpNotFound();
             }
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "CategoryName", blogPost.CategoryId);
             return View("Edit", blogPost);
         }
 
@@ -228,16 +248,7 @@ namespace BlogApp.Models
             return RedirectToAction("Index");
         }
 
-        private static string CheckBody(BlogPost blogPost)
-        {
-            if (blogPost.Body == null)
-            {
-                blogPost.ShortBody = "Here should be a article text of the post";
-                return "<strong>Here should be a article text of the post</strong>";
-            }
-            return blogPost.Body;
-        }
-
+ 
 
 
         protected override void Dispose(bool disposing)
