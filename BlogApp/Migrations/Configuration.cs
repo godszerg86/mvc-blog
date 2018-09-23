@@ -86,13 +86,17 @@ namespace BlogApp.Migrations
 
 
             // seed categories with base names
-            context.Categories.AddOrUpdate(item => item.Id,
-                new Category() { CategoryName = "Laptops" },
-                new Category() { CategoryName = "PC" },
-                new Category() { CategoryName = "Mobile" },
-                new Category() { CategoryName = "Console" },
-                new Category() { CategoryName = "Other" }
-                );
+            if (!context.Categories.Any())
+            {
+                context.Categories.AddOrUpdate(item => item.Id,
+                    new Category() { CategoryName = "Laptops" },
+                    new Category() { CategoryName = "PC" },
+                    new Category() { CategoryName = "Mobile" },
+                    new Category() { CategoryName = "Console" },
+                    new Category() { CategoryName = "Other" }
+                    );
+
+            }
 
         }
     }
