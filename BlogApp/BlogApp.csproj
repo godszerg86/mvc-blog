@@ -255,6 +255,7 @@
     <Content Include="Content\Template\fonts\font-awesome\fontawesome-webfont.ttf" />
     <Content Include="Content\Template\fonts\font-awesome\fontawesome-webfont.woff" />
     <Content Include="Content\Template\fonts\font-awesome\fontawesome-webfont.woff2" />
+    <None Include="Properties\PublishProfiles\techblogapp - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jqBootstrapValidation.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
