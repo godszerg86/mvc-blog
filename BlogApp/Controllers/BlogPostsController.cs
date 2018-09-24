@@ -48,7 +48,6 @@ namespace BlogApp.Models
             {
                 return HttpNotFound();
             }
-            blogPost.Category = db.Categories.Find(blogPost.CategoryId);
             return View("Details", blogPost);
         }
 
@@ -93,8 +92,8 @@ namespace BlogApp.Models
                     blogPost.ShortBody = "Here should be a article text of the post";
                     blogPost.Body = "<strong>Here should be a article text of the post</strong>";
                 }
-            
 
+                blogPost.CategoryName = db.Categories.Find(blogPost.CategoryId).CategoryName;
                 db.Posts.Add(blogPost);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -165,6 +164,7 @@ namespace BlogApp.Models
                     dbBlogPost.ShortBody = blogPost.ShortBody;
                     dbBlogPost.Body = blogPost.Body;
                 }
+                dbBlogPost.CategoryName = db.Categories.Find(blogPost.CategoryId).CategoryName;
                 dbBlogPost.CategoryId = blogPost.CategoryId;
                 dbBlogPost.Published = blogPost.Published;
                 dbBlogPost.Updated = DateTimeOffset.Now;
