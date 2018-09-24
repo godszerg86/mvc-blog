@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<BlogApp.BlogPost>
 @using BlogApp.Helpers;
+@using PagedList;
+@using PagedList.Mvc;
 
 
 
@@ -8,13 +10,15 @@
 }
 
 @{
-    var myModelList = Model.Reverse().ToList();
-    var firsElement = myModelList.FirstOrDefault();
+    var pagedList = (IPagedList)Model;
+    
+    var firsElement = ViewBag.FirstItem;
 }
 
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css">
 
 <div class="container">
-    
+
     <div class="row" style="padding:20px">
         <div class="col-md-12">
             <div class="entity_wrapper">
@@ -53,11 +57,11 @@
                     </div>
                     <!-- entity_title -->
                     @*<div class="entity_thumb">
-                            <img class="img-hero" src="@firsElement.MediaURL" alt="feature-top">
-                        </div>*@
+                    <img class="img-hero" src="@firsElement.MediaURL" alt="feature-top">
+                </div>*@
                     <!-- entity_thumb -->
 
-              
+
                 </div>
             </div>
             <!-- entity_wrapper -->
@@ -65,30 +69,30 @@
             <div class="row">
                 <hr />
                 @{
-                    for (int i = 1; i < myModelList.Count(); i++)
+                    foreach (var item in Model)
                     {
                         <div class="col-md-6">
                             <div class="category_article_body">
-                                <div class="top_article_img" style="background: url('@myModelList[i].MediaURL') no-repeat center; background-size: 100%;">
-                                    
+                                <div class="top_article_img" style="background: url('@item.MediaURL') no-repeat center; background-size: 100%;">
+
                                 </div>
                                 <!-- top_article_img -->
 
                                 <div class="category_article_title">
                                     <h5>
-                                        @Html.ActionLink(myModelList[i].Title, "DetailsSlug", new { slug = myModelList[i].Slug })
+                                        @Html.ActionLink(item.Title, "DetailsSlug", new { slug = item.Slug })
                                     </h5>
                                 </div>
                                 <!-- category_article_title -->
 
                                 <div class="article_date">
-                                    <a href="#">@myModelList[i].Created.ToString("dd MMMM yyyy")</a>, by: <a href="#">@myModelList[i].PostAuthor</a>
+                                    <a href="#">@item.Created.ToString("dd MMMM yyyy")</a>, by: <a href="#">@item.PostAuthor</a>
                                 </div>
                                 <!-- article_date -->
 
                                 <div class="category_article_content">
-                                    @StringTruncate.Truncate(myModelList[i].ShortBody, 500)...
-                                    @Html.ActionLink("Read More", "DetailsSlug", new { slug = myModelList[i].Slug })
+                                    @StringTruncate.Truncate(item.ShortBody, 500)...
+                                    @Html.ActionLink("Read More", "DetailsSlug", new { slug = item.Slug })
                                 </div>
                                 <!-- category_article_content -->
 
@@ -109,25 +113,12 @@
 
             </div>
             <!-- row -->
-
+        
 
 
             <nav aria-label="Page navigation" class="pagination_section">
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a>
-                    </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next" class="active">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
+                Page @(pagedList.PageCount < pagedList.PageNumber ? 0 : pagedList.PageNumber) of     @pagedList.PageCount
+                @Html.PagedListPager(pagedList, page => Url.Action("Index", new { page }))
             </nav>
             <!-- navigation -->
 

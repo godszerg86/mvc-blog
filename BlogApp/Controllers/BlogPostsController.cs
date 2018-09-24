@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BlogApp;
+using PagedList;
+using PagedList.Mvc;
 
 namespace BlogApp.Models
 {
@@ -16,9 +18,14 @@ namespace BlogApp.Models
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: BlogPosts
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.Posts.ToList());
+            int pageSize = 3; // display three blog posts at a time on this page
+            int pageNumber = (page ?? 1);
+            var orderedList = db.Posts.OrderByDescending(item => item.Created).ToList();
+            ViewBag.FirstItem = orderedList.FirstOrDefault();
+            orderedList.RemoveAt(0);
+            return View(orderedList.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: BlogPosts/Details/5
@@ -33,6 +40,8 @@ namespace BlogApp.Models
             {
                 return HttpNotFound();
             }
+
+
             return View(blogPost);
         }
 
