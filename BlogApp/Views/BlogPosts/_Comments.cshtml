@@ -1,0 +1,25 @@
+﻿@model IEnumerable<BlogApp.Comments>
+
+
+@foreach (var item in Model)
+{
+
+<div class="media">
+        <div class="media-left">
+            <a href="#">
+                <img alt="64x64" class="media-object" data-src="assets/img/reader_img3.jpg" src="~/Content/Template/img/reader_img1.jpg"
+                     data-holder-rendered="true">
+            </a>
+        </div>
+        <div class="media-body">
+            <h2 class="media-heading"><a href="#">@item.Author.DisplayName</a></h2>
+            @item.Body
+            @*<div class="entity_vote">
+                <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+              <a href="#"><span class="reply_ic">Reply </span></a>
+            </div>*@
+        </div>
+    </div>
+<!-- media end -->
+}

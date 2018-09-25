@@ -967,6 +967,7 @@ section {
 .category_article_content {
     margin-top: 20px;
     font-size: 15px;
+    text-align: justify;
 }
 
 .category_article_date:after {
@@ -1090,6 +1091,7 @@ section {
 .entity_content {
     margin-top: 30px;
     margin-bottom: 30px;
+    text-align: justify;
 }
 
     .entity_content blockquote {

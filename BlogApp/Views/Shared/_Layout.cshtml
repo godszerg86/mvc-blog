@@ -92,17 +92,18 @@
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <div class="head-search">
-                                                            <form role="form">
-                                                                <!-- Input Group -->
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control" placeholder="Type Something">
-                                                                    <span class="input-group-btn">
-                                                                        <button type="submit" class="btn btn-primary">
-                                                                            Search
-                                                                        </button>
-                                                                    </span>
-                                                                </div>
-                                                            </form>
+                                                            @using (Html.BeginForm("SearchPost","BlogPosts",FormMethod.Get, new { role="form" }))
+                                                            {
+                                                                    <!-- Input Group -->
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control" value=@ViewBag.query name="query" placeholder='Search for something...'>
+                                                                        <span class="input-group-btn">
+                                                                            <button type="submit" class="btn btn-primary">
+                                                                                Search
+                                                                            </button>
+                                                                        </span>
+                                                                    </div>
+                                                            }
                                                         </div>
                                                     </li>
                                                 </ul>
