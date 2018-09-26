@@ -2,27 +2,25 @@
 @using BlogApp.Helpers;
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
+    <li>
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
         @Html.AntiForgeryToken()
 
-        @*<ul class="nav navbar-nav navbar-right">*@
         if (User.IsInRole("Admin"))
         {
-            <li> @Html.ActionLink("ADD POST", "Create")</li>
+        @*<li>*@ @Html.ActionLink("ADD POST", "Create")@*</li>*@
         }
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserDisplayName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log Out</a></li>
-        @*</ul>*@
-    }
+        @*<li>*@
+        @Html.ActionLink("Hello, " + User.Identity.GetUserDisplayName() + " ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        @*</li>*@
+        @*<li>*@<a href="javascript:document.getElementById('logoutForm').submit()">Log Out</a>@*</li>*@
+        }
+    </li>
 }
 else
 {
-    @*<ul class="nav navbar-nav navbar-right">*@
 
     <li>@Html.ActionLink("Register", "Register", "Account", new { ReturnUrl = HttpContext.Current.Request.RawUrl }, new { id = "registerLink" })</li>
     <li>@Html.ActionLink("Log in", "Login", "Account", new { ReturnUrl = HttpContext.Current.Request.RawUrl }, new { id = "loginLink" })</li>
-    @*</ul>*@
 }
