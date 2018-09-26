@@ -172,8 +172,9 @@ namespace BlogApp.Models
                 if (blogPost.Body == null)
                 {
                     dbBlogPost.ShortBody = "Here should be a article text of the post";
-                    dbBlogPost.Body =  "<strong>Here should be a article text of the post</strong>";
-                } else
+                    dbBlogPost.Body = "<strong>Here should be a article text of the post</strong>";
+                }
+                else
                 {
                     dbBlogPost.ShortBody = blogPost.ShortBody;
                     dbBlogPost.Body = blogPost.Body;
@@ -265,7 +266,7 @@ namespace BlogApp.Models
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult CreateComment (string body, string slug)
+        public ActionResult CreateComment(string body, string slug)
         {
             if (slug == null)
             {
@@ -293,14 +294,26 @@ namespace BlogApp.Models
         [HttpGet]
         public ActionResult SearchPost(int? page, string query)
         {
+          
             int pageSize = 3; // display three blog posts at a time on this page
             int pageNumber = (page ?? 1);
-            var postList = db.Posts.Where(item => item.Title.Contains(query) ||
-                                                  item.Body.Contains(query))
-                                                  .ToList()
-                                                  .OrderByDescending(item => item.Created);
-            ViewBag.query = query;
-            return View("SearchResults",postList.ToPagedList(pageNumber, pageSize));
+            List<BlogPost> postList;
+            if (string.IsNullOrWhiteSpace(query) || string.IsNullOrEmpty(query))
+            {
+                postList = db.Posts.ToList();
+            }
+            else
+            {
+                postList = db.Posts.Where(item => item.Title.Contains(query) ||
+                                                     item.Body.Contains(query))
+                                                     .ToList()
+                                                     .OrderByDescending(item => item.Created).ToList();
+
+            }
+
+
+            ViewBag.searchText = query; 
+            return View("SearchResults", postList.ToPagedList(pageNumber, pageSize));
         }
 
 

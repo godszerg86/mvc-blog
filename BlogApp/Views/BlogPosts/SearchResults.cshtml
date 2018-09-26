@@ -57,7 +57,7 @@
 
     <nav aria-label="Page navigation" class="pagination_section">
         Page @(pagedList.PageCount < pagedList.PageNumber ? 0 : pagedList.PageNumber) of     @pagedList.PageCount
-        @Html.PagedListPager(pagedList, page => Url.Action("SearchPost", new { page, query = ViewBag.query }))
+        @Html.PagedListPager(pagedList, page => Url.Action("SearchPost", new { page, query = ViewBag.searchText }))
     </nav>
 
 </div>
