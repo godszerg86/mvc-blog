@@ -5,9 +5,9 @@
 }
 
 <div class="container">
-    <h4 class="top-h2">Create a new account.</h4>
     <div class="row">
         <div class="col-md-6">
+    <h4 class="top-h2">Create a new account.</h4>
             @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
@@ -58,11 +58,11 @@
                 </div>
             }
 
-            <div class="col-md-6">
-                <section id="socialLoginForm">
-                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-                </section>
-            </div>
+        </div>
+        <div class="col-md-6">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
         </div>
     </div>
 </div>
