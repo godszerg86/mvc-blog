@@ -12,7 +12,7 @@
             </a>
         </div>
         <div class="media-body">
-            <h2 class="media-heading"><a href="#">@item.Author.DisplayName</a></h2>
+            <h2 class="media-heading"><a href="#">@item.Author.DisplayName</a> @Html.ActionLink("Edit", "Edit", "Comments", new { id = item.Id }, null) @Html.ActionLink("Delete", "Delete", "Comments", new { id = item.Id }, null)</h2>
             @item.Body
             @*<div class="entity_vote">
                 <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>

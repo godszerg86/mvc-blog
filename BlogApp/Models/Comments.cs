@@ -18,7 +18,7 @@ namespace BlogApp
         public virtual ApplicationUser Author { get; set; }
 
         public int BlogPostId { get; set; }
-        public BlogPost BlogPost { get; set; }
+        public virtual BlogPost BlogPost { get; set; }
 
         [Required(ErrorMessage = "The Comment field is required for comment.")]
         public string Body { get; set; }
