@@ -12,6 +12,7 @@ using BlogApp.Models;
 
 namespace BlogApp.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class AccountController : Controller
     {
@@ -156,7 +157,14 @@ namespace BlogApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    DisplayName = model.DisplayName
+
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -348,7 +356,14 @@ namespace BlogApp.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                    var moreInfo = loginInfo.ExternalIdentity.Claims.ToList();
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel {
+                        Email = loginInfo.Email,
+                        FirstName = moreInfo[1].Value,
+                        LastName = moreInfo[2].Value,
+                        DisplayName = loginInfo.DefaultUserName
+
+                    });
             }
         }
 
@@ -372,7 +387,13 @@ namespace BlogApp.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    DisplayName = model.DisplayName
+                };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
