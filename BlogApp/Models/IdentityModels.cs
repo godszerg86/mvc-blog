@@ -22,6 +22,7 @@ namespace BlogApp.Models
         public string LastName { get; set; }
         public string DisplayName { get; set; }
         public virtual ICollection<Comments> BlogComments { get; set; }
+  
 
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -29,8 +30,10 @@ namespace BlogApp.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim("DisplayName", this.DisplayName.ToString()));
             return userIdentity;
         }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
