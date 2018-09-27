@@ -355,11 +355,10 @@ namespace BlogApp.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    var moreInfo = loginInfo.ExternalIdentity.Claims.ToList();
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel {
                         Email = loginInfo.Email,
-                        FirstName = moreInfo[1].Value,
-                        LastName = moreInfo[2].Value,
+                        FirstName = loginInfo.ExternalIdentity.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"),
+                        LastName = loginInfo.ExternalIdentity.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"),
                         DisplayName = loginInfo.DefaultUserName
 
                     });
