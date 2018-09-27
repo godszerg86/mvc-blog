@@ -12,7 +12,6 @@ using BlogApp.Models;
 
 namespace BlogApp.Controllers
 {
-    [RequireHttps]
     [Authorize]
     public class AccountController : Controller
     {

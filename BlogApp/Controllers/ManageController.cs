@@ -11,7 +11,6 @@ using BlogApp.Models;
 namespace BlogApp.Controllers
 {
     [Authorize]
-    [RequireHttps]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

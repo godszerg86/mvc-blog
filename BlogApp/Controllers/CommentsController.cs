@@ -10,7 +10,6 @@ using BlogApp;
 
 namespace BlogApp.Models
 {
-        [RequireHttps]
     public class CommentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -76,8 +75,7 @@ namespace BlogApp.Models
             {
                 return HttpNotFound();
             }
-            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", comments.AuthorId);
-            ViewBag.BlogPostId = new SelectList(db.Posts, "Id", "Title", comments.BlogPostId);
+         
             return View(comments);
         }
 
@@ -86,13 +84,18 @@ namespace BlogApp.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,PostId,AuthorId,BlogPostId,Body,Created,Updated,UpdateReason")] Comments comments)
+        public ActionResult Edit([Bind(Include = "Id,Body,UpdateReason")] Comments comments)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(comments).State = EntityState.Modified;
+
+                var dbComment = db.Comments.FirstOrDefault(item => item.Id == comments.Id);
+                dbComment.Body = comments.Body;
+                dbComment.Updated = DateTimeOffset.Now;
+                dbComment.UpdateReason = comments.UpdateReason;
+
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("DetailsSlug", "BlogPosts", new { slug = dbComment.BlogPost.Slug });
             }
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", comments.AuthorId);
             ViewBag.BlogPostId = new SelectList(db.Posts, "Id", "Title", comments.BlogPostId);

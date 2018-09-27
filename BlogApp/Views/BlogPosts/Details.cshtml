@@ -168,12 +168,12 @@
 
 
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+                                
+                                <h3 class="text-danger">@TempData["ErrorMsg"]</h3>
                                 <div class="form-group">
                                     <textarea name="Body" type="text" class="form-control" id="inputName" placeholder="Leave you comment..."></textarea>
                                 </div>
                                 @Html.HiddenFor(model => model.Slug)
-                                @Html.ValidationMessage("Body", "", new { @class = "text-danger" })
                                 <input type="submit" name="name" value="Comment" />
                             }
 

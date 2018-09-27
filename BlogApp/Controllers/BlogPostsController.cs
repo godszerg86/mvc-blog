@@ -14,7 +14,6 @@ using PagedList.Mvc;
 
 namespace BlogApp.Models
 {
-        [RequireHttps]
     public class BlogPostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -269,6 +268,8 @@ namespace BlogApp.Models
         [Authorize]
         public ActionResult CreateComment(string body, string slug)
         {
+            
+
             if (slug == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -280,6 +281,13 @@ namespace BlogApp.Models
             {
                 return HttpNotFound();
             }
+
+            if (string.IsNullOrWhiteSpace(body) || string.IsNullOrEmpty(body))
+            {
+                TempData["ErrorMsg"] = "Comment couldn't be empty.";
+                return RedirectToAction("DetailsSlug", new { slug = blogPost.Slug });
+            }
+
             var comment = new Comments();
             comment.Body = body;
             comment.BlogPostId = blogPost.Id;

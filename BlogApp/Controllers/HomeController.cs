@@ -6,7 +6,6 @@ using System.Web.Mvc;
 
 namespace BlogApp.Controllers
 {
-    [RequireHttps]
     public class HomeController : Controller
     {
         public ActionResult Index()
