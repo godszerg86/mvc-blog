@@ -4,7 +4,7 @@
 @foreach (var item in Model)
 {
 
-<div class="media">
+    <div class="media">
         <div class="media-left">
             <a href="#">
                 <img alt="64x64" class="media-object" data-src="assets/img/reader_img3.jpg" src="~/Content/Template/img/reader_img1.jpg"
@@ -12,14 +12,26 @@
             </a>
         </div>
         <div class="media-body">
-            <h2 class="media-heading"><a href="#">@item.Author.DisplayName</a> @Html.ActionLink("Edit", "Edit", "Comments", new { id = item.Id }, null) @Html.ActionLink("Delete", "Delete", "Comments", new { id = item.Id }, null)</h2>
+            <div class="row">
+                <div class="col-md-6">
+
+                    <h2 class="media-heading"><a href="#">@item.Author.DisplayName</a></h2>
+                </div>
+                @if ((User.IsInRole("Admin") || User.IsInRole("Moderator")) && User.Identity.IsAuthenticated)
+                {
+
+                    <div class="col-md-6">
+                        <div class="pull-right"> @Html.ActionLink("Edit", "Edit", "Comments", new { id = item.Id }, null) @Html.ActionLink("Delete", "Delete", "Comments", new { id = item.Id }, null)</div>
+                    </div>
+                }
+            </div>
             @item.Body
             @*<div class="entity_vote">
-                <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
-              <a href="#"><span class="reply_ic">Reply </span></a>
-            </div>*@
+                    <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+                  <a href="#"><span class="reply_ic">Reply </span></a>
+                </div>*@
         </div>
     </div>
-<!-- media end -->
+    <!-- media end -->
 }

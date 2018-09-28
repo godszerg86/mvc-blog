@@ -25,7 +25,12 @@ namespace BlogApp
               defaults: new { controller = "BlogPosts", action = "Create" }
               );
 
-       
+            routes.MapRoute(
+                   name: "ContactMe",
+                   url: "contact-me/",
+                   defaults: new { controller = "BlogPosts", action = "ContactMe" }
+                   );
+
 
             routes.MapRoute(
                 name: "SlugsEdit",

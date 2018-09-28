@@ -55,9 +55,22 @@
         }
     </div>
 
-    <nav aria-label="Page navigation" class="pagination_section">
-        Page @(pagedList.PageCount < pagedList.PageNumber ? 0 : pagedList.PageNumber) of     @pagedList.PageCount
-        @Html.PagedListPager(pagedList, page => Url.Action("SearchPost", new { page, query = ViewBag.searchText }))
-    </nav>
+    @if (ViewBag.CategoryId != null)
+    {
+        <nav aria-label="Page navigation" class="pagination_section">
+            Page @(pagedList.PageCount < pagedList.PageNumber ? 0 : pagedList.PageNumber) of     @pagedList.PageCount
+            @Html.PagedListPager(pagedList, page => Url.Action("ShowCategory", new { page, categoryId = ViewBag.CategoryId }))
+        </nav>
+
+    }
+    else
+    {
+
+        <nav aria-label="Page navigation" class="pagination_section">
+            Page @(pagedList.PageCount < pagedList.PageNumber ? 0 : pagedList.PageNumber) of     @pagedList.PageCount
+            @Html.PagedListPager(pagedList, page => Url.Action("SearchPost", new { page, query = ViewBag.searchText}))
+        </nav>
+
+    }
 
 </div>

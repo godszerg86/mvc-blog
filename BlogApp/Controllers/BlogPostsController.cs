@@ -330,6 +330,16 @@ namespace BlogApp.Models
             return View("SearchResults", postList.ToPagedList(pageNumber, pageSize));
         }
 
+        [HttpGet]
+        public ActionResult ShowCategory(int? page, int categoryId)
+        {
+
+            int pageSize = 3; // display three blog posts at a time on this page
+            int pageNumber = (page ?? 1);
+            var postList = db.Posts.Where(item => item.CategoryId == categoryId).ToList();
+            ViewBag.CategoryId = categoryId;
+            return View("SearchResults", postList.ToPagedList(pageNumber, pageSize));
+        }
 
         //contact me page
         public ActionResult ContactMe()
@@ -347,18 +357,21 @@ namespace BlogApp.Models
         {
             if (ModelState.IsValid)
             {
-                var newMail = new MailMessage(modelMail.FromEmail, WebConfigurationManager.AppSettings["username"]);
+                var newMail = new MailMessage(modelMail.FromEmail, WebConfigurationManager.AppSettings["emailto"]);
                 newMail.Subject = modelMail.Subject;
                 newMail.Body = $"<h3>This is email from {modelMail.FromName}. E-mail: {modelMail.FromEmail}</h3><p>{modelMail.Body}<p/>";
                 newMail.IsBodyHtml = true;
 
                 await PersonalEmail.SendAsync(newMail);
 
-                //var smtpClient = new SmtpClient();
-                // smtpClient.Send(newMail);
-                return View();
+                return RedirectToAction("ContactMeResult");
             }
 
+            return View();
+        }
+
+        public ActionResult ContactMeResult()
+        {
             return View();
         }
 
