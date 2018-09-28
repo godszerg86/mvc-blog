@@ -219,6 +219,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\BlogPost.cs" />
+    <Compile Include="Models\MyEmailService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -265,6 +266,7 @@
     <Content Include="Content\Template\fonts\font-awesome\fontawesome-webfont.ttf" />
     <Content Include="Content\Template\fonts\font-awesome\fontawesome-webfont.woff" />
     <Content Include="Content\Template\fonts\font-awesome\fontawesome-webfont.woff2" />
+    <Content Include="personal.config" />
     <None Include="Properties\PublishProfiles\techblogapp - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jqBootstrapValidation.js" />
@@ -420,7 +422,9 @@
     <Content Include="Scripts\tinymce\tinymce.js" />
     <Content Include="Scripts\tinymce\tinymce.min.js" />
     <Content Include="assets\img\500.png" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -474,6 +478,7 @@
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Views\BlogPosts\_Comments.cshtml" />
     <Content Include="Views\BlogPosts\SearchResults.cshtml" />
+    <Content Include="Views\BlogPosts\ContactMe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -5,7 +5,10 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using BlogApp;
 using Microsoft.AspNet.Identity;
@@ -268,7 +271,7 @@ namespace BlogApp.Models
         [Authorize]
         public ActionResult CreateComment(string body, string slug)
         {
-            
+
 
             if (slug == null)
             {
@@ -300,10 +303,12 @@ namespace BlogApp.Models
             return RedirectToAction("DetailsSlug", new { slug = blogPost.Slug });
         }
 
+
+        //serch for posts
         [HttpGet]
         public ActionResult SearchPost(int? page, string query)
         {
-          
+
             int pageSize = 3; // display three blog posts at a time on this page
             int pageNumber = (page ?? 1);
             List<BlogPost> postList;
@@ -321,10 +326,41 @@ namespace BlogApp.Models
             }
 
 
-            ViewBag.searchText = query; 
+            ViewBag.searchText = query;
             return View("SearchResults", postList.ToPagedList(pageNumber, pageSize));
         }
 
+
+        //contact me page
+        public ActionResult ContactMe()
+        {
+            return View();
+        }
+
+
+        //POST
+        //Send email from contact page
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ContactMe([Bind(Include = "FromName,FromEmail,Subject,Body")]MyEmailService modelMail)
+        {
+            if (ModelState.IsValid)
+            {
+                var newMail = new MailMessage(modelMail.FromEmail, WebConfigurationManager.AppSettings["username"]);
+                newMail.Subject = modelMail.Subject;
+                newMail.Body = $"<h3>This is email from {modelMail.FromName}. E-mail: {modelMail.FromEmail}</h3><p>{modelMail.Body}<p/>";
+                newMail.IsBodyHtml = true;
+
+                await PersonalEmail.SendAsync(newMail);
+
+                //var smtpClient = new SmtpClient();
+                // smtpClient.Send(newMail);
+                return View();
+            }
+
+            return View();
+        }
 
         protected override void Dispose(bool disposing)
         {
